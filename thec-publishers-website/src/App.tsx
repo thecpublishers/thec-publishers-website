@@ -61,35 +61,67 @@ function LinkButton({ href, children, secondary = false, light = false }: { href
   return <a className={`button ${secondary ? "button-secondary" : ""} ${light ? "button-light" : ""}`} href={href}>{children}<Icon name="arrow" /></a>;
 }
 
+```tsx
 function Header() {
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const close = () => setOpen(false);
     window.addEventListener("popstate", close);
     return () => window.removeEventListener("popstate", close);
   }, []);
+
   return (
     <header className="site-header">
       <a href="/" className="brand" aria-label="Thec Writers & Publishers, home">
         <img src={logo} alt="Thec Writers & Publishers" />
       </a>
+
       <nav className="desktop-nav" aria-label="Primary navigation">
-        {nav.map(([label, href]) => <a key={label} href={href}>{label}</a>)}
+        {nav.map(([label, href]) => (
+          <a key={label} href={href}>{label}</a>
+        ))}
       </nav>
-      <a className="header-cta" href="/publish-your-book/">Publish Your Book <Icon name="arrow" /></a>
-      <button className="menu-button" type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"}>
+
+      <a className="header-cta" href="/publish-your-book/">
+        Publish Your Book <Icon name="arrow" />
+      </a>
+
+      <button
+        className="menu-button"
+        type="button"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-controls="mobile-menu"
+        aria-label={open ? "Close menu" : "Open menu"}
+      >
         <Icon name={open ? "close" : "menu"} />
       </button>
-      <div id="mobile-menu" className={`mobile-menu ${open ? "open" : ""}`}>
+
+      <div
+        id="mobile-menu"
+        className={`mobile-menu ${open ? "open" : ""}`}
+      >
         <nav aria-label="Mobile navigation">
-          {nav.map(([label, href], i) => <a key={label} href={href}><span>0{i + 1}</span>{label}</a>)}
-          <a className="mobile-cta" href="/publish-your-book/">Publish Your Book <Icon name="arrow" /></a>
+          {nav.map(([label, href], i) => (
+            <a key={label} href={href} onClick={() => setOpen(false)}>
+              <span>0{i + 1}</span>
+              {label}
+            </a>
+          ))}
+
+          <a
+            className="mobile-cta"
+            href="/publish-your-book/"
+            onClick={() => setOpen(false)}
+          >
+            Publish Your Book <Icon name="arrow" />
+          </a>
         </nav>
       </div>
     </header>
   );
 }
-
 function Eyebrow({ children }: { children: ReactNode }) {
   return <div className="eyebrow"><span />{children}</div>;
 }

@@ -61,7 +61,7 @@ function LinkButton({ href, children, secondary = false, light = false }: { href
   return <a className={`button ${secondary ? "button-secondary" : ""} ${light ? "button-light" : ""}`} href={href}>{children}<Icon name="arrow" /></a>;
 }
 
-```tsx
+
 function Header() {
   const [open, setOpen] = useState(false);
 

@@ -35,30 +35,12 @@ const books = [
 ];
 
 const faqs = [
-  [
-    "What services does Thec Writers & Publishers offer?",
-    "We support authors with ghostwriting, editing and proofreading, printing and publishing consultation, digital publishing and ISBN procurement, book marketing and distribution, and transcription. Each project is scoped to the author's needs.",
-  ],
-  [
-    "How long does publishing take?",
-    "Timelines depend on manuscript length and the services required. After reviewing your project we can outline a realistic schedule.",
-  ],
-  [
-    "Who retains the rights to a published book?",
-    "Rights arrangements depend on the publishing agreement chosen for the project. We recommend discussing your preferred arrangement during consultation.",
-  ],
-  [
-    "What formats can a book be published in?",
-    "Depending on your goals, a project may be prepared for print and digital formats. We advise on trim size, file formats, and distribution channels.",
-  ],
-  [
-    "How much does publishing cost?",
-    "Every project has different editorial and production needs. Contact us with manuscript details for a tailored estimate.",
-  ],
-  [
-    "How do I begin my publishing journey?",
-    "Start by completing the publishing enquiry form or speaking with our team on WhatsApp. Tell us where your manuscript is and what you hope to achieve.",
-  ],
+  ["What services does Thec Writers & Publishers offer?", "We support authors with ghostwriting, editing and proofreading, printing and publishing consultation, digital publishing and ISBN procurement, book marketing and distribution, and transcription."],
+  ["How long does publishing take?", "Timelines depend on manuscript length, readiness, the services required, and the production plan. After reviewing your project, our team can outline a realistic schedule."],
+  ["Who retains the rights to a published book?", "Rights arrangements depend on the publishing agreement selected for the project. We recommend discussing your preferred arrangement during consultation and reviewing the written agreement carefully."],
+  ["What formats can a book be published in?", "Depending on your goals, a project may be prepared for print and digital formats. The suitable formats, trim size, and production specifications are confirmed during planning."],
+  ["How much does publishing cost?", "Every project has different editorial and production needs. Contact us with your manuscript details for a tailored estimate rather than a one-size-fits-all price."],
+  ["How do I begin my publishing journey?", "Start by completing the publishing enquiry form or speaking with our team on WhatsApp. Tell us where your manuscript is now and what you hope to achieve."],
 ];
 
 function Icon({ name }: { name: "arrow" | "menu" | "close" | "check" | "plus" | "mail" | "phone" | "pin" }) {
@@ -81,20 +63,11 @@ function LinkButton({ href, children, secondary = false, light = false }: { href
 
 function Header() {
   const [open, setOpen] = useState(false);
-
   useEffect(() => {
     const close = () => setOpen(false);
-    const handleCloseEvent = () => setOpen(false);
-
     window.addEventListener("popstate", close);
-    window.addEventListener("closeMobileMenu", handleCloseEvent);
-
-    return () => {
-      window.removeEventListener("popstate", close);
-      window.removeEventListener("closeMobileMenu", handleCloseEvent);
-    };
+    return () => window.removeEventListener("popstate", close);
   }, []);
-
   return (
     <header className="site-header">
       <a href="/" className="brand" aria-label="Thec Writers & Publishers, home">
@@ -109,12 +82,8 @@ function Header() {
       </button>
       <div id="mobile-menu" className={`mobile-menu ${open ? "open" : ""}`}>
         <nav aria-label="Mobile navigation">
-          {nav.map(([label, href], i) => (
-            <a key={label} href={href} onClick={() => setOpen(false)}>
-              <span>0{i + 1}</span>{label}
-            </a>
-          ))}
-          <a className="mobile-cta" href="/publish-your-book/" onClick={() => setOpen(false)}>Publish Your Book <Icon name="arrow" /></a>
+          {nav.map(([label, href], i) => <a key={label} href={href}><span>0{i + 1}</span>{label}</a>)}
+          <a className="mobile-cta" href="/publish-your-book/">Publish Your Book <Icon name="arrow" /></a>
         </nav>
       </div>
     </header>
@@ -242,19 +211,7 @@ function Hero() {
 
 function Faq({ question, answer, index }: { question: string; answer: string; index: number }) {
   const [open, setOpen] = useState(index === 0);
-  return (
-    <div className={`faq-item ${open ? "active" : ""}`}>
-      <h3>
-        <button type="button" onClick={() => setOpen(!open)} aria-expanded={open}>
-          <span>{question}</span>
-          <Icon name="plus" />
-        </button>
-      </h3>
-      <div className="faq-answer" aria-hidden={!open}>
-        <p>{answer}</p>
-      </div>
-    </div>
-  );
+  return <div className={`faq-item ${open ? "active" : ""}`}><h3><button type="button" onClick={() => setOpen(!open)} aria-expanded={open}><span>{question}</span><Icon name="plus" /></button></h3><div className="faq-answer" hidden={!open}><p>{answer}</p></div></div>;
 }
 
 function EnquiryForm() {
@@ -271,7 +228,7 @@ function EnquiryForm() {
         <label><span>Full name</span><input name="name" required placeholder="Your name" /></label>
         <label><span>Email address</span><input name="email" required type="email" placeholder="you@example.com" /></label>
         <label><span>Phone number</span><input name="phone" required type="tel" placeholder="+234" /></label>
-        <label><span>Service needed</span><select name="service" required defaultValue=""><option value="" disabled>Select a service</option>{services.map(([, title]) => <option key={title} value={title}>{title}</option>)}</select></label>
+        <label><span>Service needed</span><select name="service" required defaultValue=""><option value="" disabled>Select a service</option>{services.map(([, title]) => <option key={title}>{title}</option>)}</select></label>
         <label className="full"><span>Tell us about your book</span><textarea name="message" required rows={6} placeholder="What stage is your manuscript at, and what support do you need?" /></label>
       </div>
       <button className="button" type="submit">Review my enquiry <Icon name="arrow" /></button>
@@ -295,62 +252,23 @@ const pageContent: Record<string, { eyebrow: string; title: string; intro: strin
 };
 
 function InnerPage({ data }: { data: { eyebrow: string; title: string; intro: string; kind?: string } }) {
-  return (
-    <main className="inner-page">
-      <section className="inner-hero"><Eyebrow>{data.eyebrow}</Eyebrow><h1>{data.title}</h1><p>{data.intro}</p></section>
-      {data.kind === "services" && (
-        <section className="section service-grid">{services.map(([icon, title, copy]) => <article className="service-card" key={title}><div className="service-top"><span className="service-icon">{icon}</span></div><h3>{title}</h3><p>{copy}</p></article>)}</section>
-      )}
-      {data.kind === "books" && (
-        <section className="section book-page-grid">{books.map(([title, src]) => <article className="book-card" key={title}><div className="book-cover"><img src={src} alt={`${title} book cover`} /></div><h3>{title}</h3></article>)}</section>
-      )}
-      {data.kind === "about" && (
-        <section className="section about-story"><div><SectionHeading eyebrow="Our approach" title="Author-centred, quality-minded." /><p>We help authors navigate publishing with clear guidance and attention to craft.</p></div></section>
-      )}
-      {data.kind === "blog" && (
-        <section className="section empty-state"><span>Journal archive</span><h2>Existing articles will appear here.</h2><p>The template is ready for migration from WordPress while we confirm authorship and links.</p></section>
-      )}
-      {data.kind === "contact" && (
-        <section className="section contact-layout"><div><h2>Start with the essentials.</h2><p><Icon name="mail" />talk2thecservices@gmail.com</p><p><Icon name="phone" />+234 706 856 6254</p></div></section>
-      )}
-      {!data.kind && (
-        <section className="section empty-state"><span>Page template</span><h2>This page is ready for verified content.</h2><p>The layout intentionally avoids inventing programme terms; we prefer to publish accurate, approved information.</p></section>
-      )}
-    </main>
-  );
+  return <main className="inner-page"><section className="inner-hero"><Eyebrow>{data.eyebrow}</Eyebrow><h1>{data.title}</h1><p>{data.intro}</p></section>
+    {data.kind === "services" && <section className="section service-grid">{services.map(([icon, title, copy], i) => <article className="service-card" key={title}><div className="service-top"><span className="service-icon">{icon}</span><span className="card-number">0{i + 1}</span></div><h3>{title}</h3><p>{copy}</p><a href={`/services/${title.toLowerCase().replaceAll(" ", "-")}/`}>Learn more <Icon name="arrow" /></a></article>)}</section>}
+    {data.kind === "books" && <section className="section book-page-grid">{books.map(([title, src]) => <article className="book-card" key={title}><div className="book-cover"><img src={src} alt={`${title} book cover`} /></div><h3>{title}</h3></article>)}</section>}
+    {data.kind === "about" && <section className="section about-story"><div><SectionHeading eyebrow="Our approach" title="Author-centred, quality-minded." /><p>We help authors navigate publishing with professional guidance, transparent communication, and respect for the purpose behind every manuscript.</p><p>From our base in Keffi, Nasarawa State, we serve writers, educators, and thinkers across genres and backgrounds.</p></div><img src={companyGraphic} alt="Thec publishing operations and scope of service" /></section>}
+    {data.kind === "blog" && <section className="section empty-state"><span>Journal archive</span><h2>Existing articles will appear here.</h2><p>The template is ready for migration from WordPress while preserving article URLs, dates, categories, and authorship.</p></section>}
+    {data.kind === "contact" && <section className="section contact-layout"><div><h2>Start with the essentials.</h2><p><Icon name="mail" />talk2thecservices@gmail.com</p><p><Icon name="phone" />+234 706 856 6254</p><p><Icon name="pin" />Suite 31–34, Hassan Sadiq Plaza, beside Atlantic Guest Inn, Total Roundabout, Keffi, Nasarawa State, Nigeria.</p></div><EnquiryForm /></section>}
+    {!data.kind && <section className="section empty-state"><span>Page template</span><h2>This page is ready for verified content.</h2><p>The layout intentionally avoids inventing programme terms, vacancies, or commercial claims.</p></section>}
+  </main>;
 }
 
 function Footer() {
-  return (
-    <footer className="footer">
-      <div className="footer-top">
-        <div className="footer-brand">
-          <img src={logo} alt="Thec Writers & Publishers" />
-          <p>Professional publishing support for writers, authors, and educators. Empowering African ideas.</p>
-          <a href="mailto:talk2thecservices@gmail.com">talk2thecservices@gmail.com</a>
-        </div>
-        <div>
-          <h3>Explore</h3>
-          {[...nav, ["Careers", "/careers/"], ["Referral Program", "/referral-program/"]].map(([l, h]) => <a key={String(l)} href={String(h)}>{String(l)}</a>)}
-        </div>
-        <div>
-          <h3>Services</h3>
-          {services.slice(0, 5).map(([, title]) => <a key={title} href="/services/">{title}</a>)}
-        </div>
-        <div>
-          <h3>Visit & contact</h3>
-          <p>Suite 31–34, Hassan Sadiq Plaza, beside Atlantic Guest Inn, Total Roundabout, Keffi, Nasarawa State.</p>
-          <p>+234 706 856 6254</p>
-          <p>Mon–Sat, 9:00 AM–5:00 PM</p>
-        </div>
-      </div>
-      <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Thec Writers & Publishers. All rights reserved.</p>
-        <p>Social links will be added when confirmed.</p>
-        <a href="/bookstore/">Bookstore</a>
-      </div>
-    </footer>
-  );
+  return <footer className="footer"><div className="footer-top">
+    <div className="footer-brand"><img src={logo} alt="Thec Writers & Publishers" /><p>Professional publishing support for writers, authors, and educators. Empowering African ideas.</p><a href="mailto:talk2thecservices@gmail.com">talk2thecservices@gmail.com</a></div>
+    <div><h3>Explore</h3>{[...nav, ["Careers", "/careers/"], ["Referral Program", "/referral-program/"]].map(([l, h]) => <a key={l} href={h}>{l}</a>)}</div>
+    <div><h3>Services</h3>{services.slice(0, 5).map(([, title]) => <a key={title} href="/services/">{title}</a>)}</div>
+    <div><h3>Visit & contact</h3><p>Suite 31–34, Hassan Sadiq Plaza, beside Atlantic Guest Inn, Total Roundabout, Keffi, Nasarawa State.</p><p>+234 706 856 6254</p><p>Mon–Sat, 9:00 AM–5:00 PM</p><a href="http://wa.link/2u3nsm" target="_blank" rel="noreferrer">WhatsApp ↗</a></div>
+  </div><div className="footer-bottom"><p>© {new Date().getFullYear()} Thec Writers & Publishers. All rights reserved.</p><p>Social links will be added when confirmed.</p><a href="/bookstore/">Bookstore</a></div></footer>;
 }
 
 function App() {
@@ -358,12 +276,11 @@ function App() {
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
       const target = (event.target as HTMLElement).closest("a");
-      if (!target || (target as HTMLAnchorElement).target === "_blank" || (target as HTMLAnchorElement).origin !== window.location.origin) return;
+      if (!target || target.target === "_blank" || target.origin !== window.location.origin) return;
       event.preventDefault();
-      window.history.pushState({}, "", (target as HTMLAnchorElement).pathname);
-      setPath((target as HTMLAnchorElement).pathname);
+      window.history.pushState({}, "", target.pathname);
+      setPath(target.pathname);
       window.scrollTo({ top: 0, behavior: "smooth" });
-      window.dispatchEvent(new CustomEvent("closeMobileMenu"));
     };
     const onPop = () => setPath(window.location.pathname);
     document.addEventListener("click", onClick);
@@ -372,8 +289,8 @@ function App() {
   }, []);
   const exact = path === "/" ? null : pageContent[path];
   const serviceDetail = path.startsWith("/services/") && path !== "/services/";
-  const data = exact ?? (serviceDetail ? { eyebrow: "Publishing service", title: "Expert support shaped around your manuscript.", intro: "Speak with our team to understand the scope, process, timeline, and investment for this service.", kind: "contact" } : undefined);
-  return <><Header />{path === "/" ? <Hero /> : data ? <InnerPage data={data as any} /> : <InnerPage data={{ eyebrow: "Not found", title: "This page has not been published yet.", intro: "Return to the homepage or use the site navigation to continue." }} /> }<Footer /></>;
+  const data = exact ?? (serviceDetail ? { eyebrow: "Publishing service", title: "Expert support shaped around your manuscript.", intro: "Speak with our team to understand the scope, process, timeline, and investment for this service.", kind: "contact" } : null);
+  return <><Header />{path === "/" ? <Hero /> : data ? <InnerPage data={data} /> : <InnerPage data={{ eyebrow: "Not found", title: "This page has not been published yet.", intro: "Return to the homepage or contact our team if you were looking for something specific." }} />}<Footer /></>;
 }
 
 export default App;

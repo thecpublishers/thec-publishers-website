@@ -100,7 +100,7 @@ function Header() {
 
       <div
         id="mobile-menu"
-        className={`mobile-menu ${open ? "open" : ""}`}
+        className={open ? "mobile-menu open" : "mobile-menu"}
       >
         <nav aria-label="Mobile navigation">
           {nav.map(([label, href], i) => (

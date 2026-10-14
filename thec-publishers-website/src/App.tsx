@@ -35,12 +35,30 @@ const books = [
 ];
 
 const faqs = [
-  ["What services does Thec Writers & Publishers offer?", "We support authors with ghostwriting, editing and proofreading, printing and publishing consultation, digital publishing and ISBN procurement[...]
-  ["How long does publishing take?", "Timelines depend on manuscript length, readiness, the services required, and the production plan. After reviewing your project, our team can outline a realistic s[...]
-  ["Who retains the rights to a published book?", "Rights arrangements depend on the publishing agreement selected for the project. We recommend discussing your preferred arrangement during consultati[...]
-  ["What formats can a book be published in?", "Depending on your goals, a project may be prepared for print and digital formats. The suitable formats, trim size, and production specifications are con[...]
-  ["How much does publishing cost?", "Every project has different editorial and production needs. Contact us with your manuscript details for a tailored estimate rather than a one-size-fits-all price.[...]
-  ["How do I begin my publishing journey?", "Start by completing the publishing enquiry form or speaking with our team on WhatsApp. Tell us where your manuscript is now and what you hope to achieve."]...
+  [
+    "What services does Thec Writers & Publishers offer?",
+    "We support authors with ghostwriting, editing and proofreading, printing and publishing consultation, digital publishing and ISBN procurement, marketing and distribution planning, and transcription services.",
+  ],
+  [
+    "How long does publishing take?",
+    "Timelines depend on manuscript length, readiness, the services required, and the production plan. After reviewing your project, our team will outline a realistic schedule.",
+  ],
+  [
+    "Who retains the rights to a published book?",
+    "Rights arrangements depend on the publishing agreement selected for the project. We recommend discussing your preferred arrangement during consultation so terms are clear up front.",
+  ],
+  [
+    "What formats can a book be published in?",
+    "Depending on your goals, a project may be prepared for print and digital formats. The suitable formats, trim size, and production specifications are confirmed during production planning.",
+  ],
+  [
+    "How much does publishing cost?",
+    "Every project has different editorial and production needs. Contact us with your manuscript details for a tailored estimate rather than a one-size-fits-all price.",
+  ],
+  [
+    "How do I begin my publishing journey?",
+    "Start by completing the publishing enquiry form or speaking with our team on WhatsApp. Tell us where your manuscript is now and what you hope to achieve.",
+  ],
 ];
 
 function Icon({ name }: { name: "arrow" | "menu" | "close" | "check" | "plus" | "mail" | "phone" | "pin" }) {
@@ -153,7 +171,13 @@ function Hero() {
         <div className="about-copy">
           <SectionHeading eyebrow="About Thec" title="Turning ideas into books that matter." />
           <p className="lead">Publishing a book can feel complex. We make the journey clearer—with professional guidance, attention to quality, and deep respect for the author’s vision.</p>
-          <ul>{["Professional writing and editorial support", "Personalised publishing guidance", "Transparent communication", "Attention to production quality", "Support throughout the publishing jou[...]
+          <ul>
+            <li>Professional writing and editorial support</li>
+            <li>Personalised publishing guidance</li>
+            <li>Transparent communication</li>
+            <li>Attention to production quality</li>
+            <li>Support throughout the publishing journey</li>
+          </ul>
           <LinkButton href="/about-us/" secondary>Discover Our Story</LinkButton>
         </div>
       </section>
@@ -164,7 +188,7 @@ function Hero() {
           <LinkButton href="/published-books/" secondary>View all books</LinkButton>
         </div>
         <div className="book-rail">
-          {books.map(([title, src], i) => <a href="/published-books/" className="book-card" key={title}><div className="book-cover"><img src={src} alt={`${title} book cover`} loading="lazy" /></div><s[...]
+          {books.map(([title, src], i) => <a href="/published-books/" className="book-card" key={title}><div className="book-cover"><img src={src} alt={`${title} book cover`} loading="lazy" /></div><strong>{title}</strong></a>)}
         </div>
       </section>
 
@@ -181,10 +205,10 @@ function Hero() {
       </section>
 
       <section className="section team-section">
-        <div className="section-intro"><SectionHeading eyebrow="Our people" title="A small team with a serious commitment to books." /><p>The people guiding projects, supporting authors, and keeping e[...]
+        <div className="section-intro"><SectionHeading eyebrow="Our people" title="A small team with a serious commitment to books." /><p>The people guiding projects, supporting authors, and keeping everything on track.</p></div>
         <div className="team-grid">
           {[["PE", "Paul Elijah", "Founder & CEO"], ["JM", "Joshua Caleb Mechi", "Human Resources"], ["AA", "Aardhan Abdull", "Project Manager"]].map(([initials, name, role]) => (
-            <article className="team-card" key={name}><div className="team-photo" aria-label={`Photo placeholder for ${name}`}><span>{initials}</span><small>Official photo to be added</small></div><h3[...]
+            <article className="team-card" key={name as string}><div className="team-photo" aria-label={`Photo placeholder for ${name}`}><span>{initials}</span><small>Official photo to be added</small></div><h3>{name}</h3><p>{role}</p></article>
           ))}
         </div>
       </section>
@@ -198,13 +222,13 @@ function Hero() {
       </section>
 
       <section className="section faq-section">
-        <div><SectionHeading eyebrow="Frequently asked" title="Questions before the first page." /><p className="faq-intro">Every book is different. These answers cover the essentials, and our team ca[...]
+        <div><SectionHeading eyebrow="Frequently asked" title="Questions before the first page." /><p className="faq-intro">Every book is different. These answers cover the essentials, and our team can talk through details during consultation.</p></div>
         <div className="faq-list">{faqs.map(([q, a], i) => <Faq key={q} question={q} answer={a} index={i} />)}</div>
       </section>
 
       <section className="cta-section">
         <div><Eyebrow>Your next chapter</Eyebrow><h2>Ready to bring your book to life?</h2><p>Tell us about your manuscript and let us help you plan your next step.</p></div>
-        <div className="button-row"><LinkButton href="/publish-your-book/" light>Start Your Publishing Journey</LinkButton><a className="text-link-light" href="http://wa.link/2u3nsm" target="_blank" r[...]
+        <div className="button-row"><LinkButton href="/publish-your-book/" light>Start Your Publishing Journey</LinkButton><a className="text-link-light" href="http://wa.link/2u3nsm" target="_blank" rel="noreferrer">Chat on WhatsApp</a></div>
       </section>
     </main>
   );
@@ -212,7 +236,7 @@ function Hero() {
 
 function Faq({ question, answer, index }: { question: string; answer: string; index: number }) {
   const [open, setOpen] = useState(index === 0);
-  return <div className={`faq-item ${open ? "active" : ""}`}><h3><button type="button" onClick={() => setOpen(!open)} aria-expanded={open}><span>{question}</span><Icon name="plus" /></button></h3><div[...]
+  return <div className={`faq-item ${open ? "active" : ""}`}><h3><button type="button" onClick={() => setOpen(!open)} aria-expanded={open}><span>{question}</span><Icon name="plus" /></button></h3><div className="faq-answer" aria-hidden={!open}><p>{answer}</p></div></div>;
 }
 
 function EnquiryForm() {
@@ -229,7 +253,7 @@ function EnquiryForm() {
         <label><span>Full name</span><input name="name" required placeholder="Your name" /></label>
         <label><span>Email address</span><input name="email" required type="email" placeholder="you@example.com" /></label>
         <label><span>Phone number</span><input name="phone" required type="tel" placeholder="+234" /></label>
-        <label><span>Service needed</span><select name="service" required defaultValue=""><option value="" disabled>Select a service</option>{services.map(([, title]) => <option key={title}>{title}</o[...]
+        <label><span>Service needed</span><select name="service" required defaultValue=""><option value="" disabled>Select a service</option>{services.map(([, title]) => <option key={title}>{title}</option>)}</select></label>
         <label className="full"><span>Tell us about your book</span><textarea name="message" required rows={6} placeholder="What stage is your manuscript at, and what support do you need?" /></label>
       </div>
       <button className="button" type="submit">Review my enquiry <Icon name="arrow" /></button>
@@ -241,25 +265,131 @@ function EnquiryForm() {
 }
 
 const pageContent: Record<string, { eyebrow: string; title: string; intro: string; kind?: string }> = {
-  "/about-us/": { eyebrow: "About Thec", title: "A publishing partner for ideas that deserve to travel.", intro: "Founded in 2024 by Paul Elijah, Thec Writers & Publishers helps writers move from poss[...]", kind: "about" },
-  "/services/": { eyebrow: "Our services", title: "Professional support for every stage of the book.", intro: "Choose the guidance your manuscript needs—from writing and editorial development to pro[...]", kind: "services" },
+  "/about-us/": {
+    eyebrow: "About Thec",
+    title: "A publishing partner for ideas that deserve to travel.",
+    intro: "Founded in 2024 by Paul Elijah, Thec Writers & Publishers helps writers move from possibility to publication with practical, transparent support.",
+    kind: "about",
+  },
+  "/services/": { eyebrow: "Our services", title: "Professional support for every stage of the book.", intro: "Choose the guidance your manuscript needs — from writing and editorial development to production and distribution.", kind: "services" },
   "/published-books/": { eyebrow: "Published books", title: "A growing shelf of African ideas.", intro: "Explore selected titles brought to life with Thec Writers & Publishers.", kind: "books" },
-  "/blog/": { eyebrow: "The journal", title: "Practical thinking for serious authors.", intro: "Publishing guidance, editorial perspectives, and useful ideas for writers. Articles from the existing Wo[...]", kind: "blog" },
-  "/careers/": { eyebrow: "Careers", title: "Help us bring important words to life.", intro: "Future opportunities with Thec Writers & Publishers will be published here. No open roles are currently li[...]" },
-  "/referral-program/": { eyebrow: "Referral programme", title: "Introduce a writer to the right publishing support.", intro: "This page is prepared for the existing referral programme. Confirmed term[...]" },
-  "/bookstore/": { eyebrow: "Bookstore", title: "Discover books published with Thec.", intro: "The future storefront can connect to the existing WooCommerce catalogue. Products, accounts, orders, and [...]", },
+  "/blog/": { eyebrow: "The journal", title: "Practical thinking for serious authors.", intro: "Publishing guidance, editorial perspectives, and useful ideas for writers. Current posts are on our WordPress blog.", kind: "blog" },
+  "/careers/": { eyebrow: "Careers", title: "Help us bring important words to life.", intro: "Future opportunities with Thec Writers & Publishers will be published here. No open roles are currently listed.", kind: "" },
+  "/referral-program/": { eyebrow: "Referral programme", title: "Introduce a writer to the right publishing support.", intro: "This page is prepared for the existing referral programme. Confirmed terms will be published here.", kind: "" },
+  "/bookstore/": { eyebrow: "Bookstore", title: "Discover books published with Thec.", intro: "The future storefront can connect to the existing WooCommerce catalogue. Products, accounts, and orders will be managed there.", kind: "" },
   "/contact/": { eyebrow: "Contact", title: "Let’s talk about your book.", intro: "Tell us where you are in the publishing journey. Our team is available Monday to Saturday, 9:00 AM–5:00 PM.", kind: "contact" },
-  "/publish-your-book/": { eyebrow: "Publishing enquiry", title: "Your book starts with a conversation.", intro: "Share a little about your manuscript, goals, and the support you need. We’ll help yo[...]" },
+  "/publish-your-book/": { eyebrow: "Publishing enquiry", title: "Your book starts with a conversation.", intro: "Share a little about your manuscript, goals, and the support you need. We’ll help you identify next steps.", kind: "" },
 };
 
 function InnerPage({ data }: { data: { eyebrow: string; title: string; intro: string; kind?: string } }) {
   return <main className="inner-page"><section className="inner-hero"><Eyebrow>{data.eyebrow}</Eyebrow><h1>{data.title}</h1><p>{data.intro}</p></section>
-    {data.kind === "services" && <section className="section service-grid">{services.map(([icon, title, copy], i) => <article className="service-card" key={title}><div className="service-top"><sp[...]
-    {data.kind === "books" && <section className="section book-page-grid">{books.map(([title, src]) => <article className="book-card" key={title}><div className="book-cover"><img src={src} alt={`[...]" /></div><s[...]
-    {data.kind === "about" && <section className="section about-story"><div><SectionHeading eyebrow="Our approach" title="Author-centred, quality-minded." /><p>We help authors navigate publishing[...]</div></section>}
-    {data.kind === "blog" && <section className="section empty-state"><span>Journal archive</span><h2>Existing articles will appear here.</h2><p>The template is ready for migration from WordPress[...]</section>}
-    {data.kind === "contact" && <section className="section contact-layout"><div><h2>Start with the essentials.</h2><p><Icon name="mail" />talk2thecservices@gmail.com</p><p><Icon name="phone" />+234 70[...]</p></div><EnquiryForm /></section>}
-    {!data.kind && <section className="section empty-state"><span>Page template</span><h2>This page is ready for verified content.</h2><p>The layout intentionally avoids inventing programme terms, vac[...]</section>}
+    {data.kind === "services" && (
+      <section className="section service-list">
+        <div className="section-intro"><SectionHeading eyebrow="Our services" title="How we work with authors." copy="Select a service below to learn what it includes." /></div>
+        <div className="service-grid">
+          {services
+            .filter(([, title]) => ["Ghostwriting", "Editing & Proofreading", "Printing & Consultation", "Marketing & Distribution", "Transcription Services"].includes(title))
+            .map(([icon, title, copy]) => (
+              <article className="service-card" key={title}>
+                <div className="service-top"><span className="service-icon">{icon}</span></div>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+                <ul>
+                  {title === "Ghostwriting" && <><li>Concept development and structure</li><li>Full manuscript writing in your voice</li><li>Collaboration and revision rounds</li></>}
+                  {title === "Editing & Proofreading" && <><li>Structural and developmental editing</li><li>Line editing for clarity and tone</li><li>Proofreading before publication</li></>}
+                  {title === "Printing & Consultation" && <><li>Advice on paper, trim size and finishes</li><li>Print-on-demand and short-run options</li><li>Costing and supplier coordination</li></>}
+                  {title === "Marketing & Distribution" && <><li>Audience and channel planning</li><li>Metadata and retailer preparation</li><li>Launch and ongoing promotion advice</li></>}
+                  {title === "Transcription Services" && <><li>Accurate transcription of interviews and recordings</li><li>Speaker attribution and timestamping options</li><li>Turnaround time estimates on enquiry</li></>}
+                </ul>
+              </article>
+            ))}
+        </div>
+        <p className="note">Digital publishing and ISBN support are also available as part of our production services.</p>
+      </section>
+    )}
+
+    {data.kind === "books" && (
+      <section className="section book-page-grid">
+        {books.map(([title, src]) => (
+          <article className="book-card" key={title}>
+            <div className="book-cover"><img src={src} alt={`${title} book cover`} loading="lazy" /></div>
+            <h3>{title}</h3>
+            <a href="/published-books/">View details</a>
+          </article>
+        ))}
+      </section>
+    )}
+
+    {data.kind === "about" && (
+      <section className="section about-story">
+        <SectionHeading eyebrow="Our approach" title="Author-centred, quality-minded." />
+        <p>We help authors navigate publishing with clarity and care. Our services are designed to match the needs of the manuscript and the goals of the author — whether the project requires writing from scratch, careful editing, or production support for print and digital channels.</p>
+
+        <div className="about-sections">
+          <article>
+            <h3>Company</h3>
+            <p>Thec Writers & Publishers was founded in 2024 and operates from Keffi, Nasarawa State. We combine editorial experience with practical production knowledge to help writers publish reliably and professionally.</p>
+          </article>
+
+          <article>
+            <h3>Author support</h3>
+            <ul>
+              <li>Ghostwriting and manuscript development</li>
+              <li>Comprehensive editing (developmental, line, and proofreading)</li>
+              <li>Publishing guidance and contract clarity</li>
+              <li>Marketing and distribution planning</li>
+            </ul>
+          </article>
+
+          <article>
+            <h3>Our publishing process</h3>
+            <ol>
+              <li><strong>Consultation:</strong> We discuss your idea, goals, and timeline.</li>
+              <li><strong>Manuscript development:</strong> Writing and editing to prepare a publishable manuscript.</li>
+              <li><strong>Production:</strong> Design, typesetting, and printing coordination.</li>
+              <li><strong>Publication & promotion:</strong> Retail preparation, metadata, and launch support.</li>
+            </ol>
+          </article>
+        </div>
+
+        <LinkButton href="/services/" secondary>See our services</LinkButton>
+      </section>
+    )}
+
+    {data.kind === "blog" && (
+      <section className="section empty-state">
+        <span>Journal archive</span>
+        <h2>Articles and guidance for writers</h2>
+        <p>We keep practical editorial and publishing guidance on our WordPress blog. If you’re looking for existing articles and resources, visit our blog where the current archive is hosted.</p>
+        <p><a href="https://thecpublishers.com/blog/" target="_blank" rel="noreferrer">Visit the WordPress blog</a></p>
+      </section>
+    )}
+
+    {data.kind === "contact" && (
+      <section className="section contact-layout">
+        <div>
+          <h2>Start with the essentials.</h2>
+          <p><Icon name="mail" /> <a href="mailto:talk2thecservices@gmail.com">talk2thecservices@gmail.com</a></p>
+          <p><Icon name="phone" /> <a href="tel:+2347068566254">+234 706 856 6254</a></p>
+          <p><Icon name="pin" /> Suite 31–34, Hassan Sadiq Plaza, beside Atlantic Guest Inn, Total Roundabout, Keffi, Nasarawa State.</p>
+          <p>Opening hours: Mon–Sat, 9:00 AM–5:00 PM</p>
+          <p><a href="http://wa.link/2u3nsm" target="_blank" rel="noreferrer">Chat on WhatsApp</a></p>
+        </div>
+        <div>
+          <h3>Publishing enquiry</h3>
+          <p>The enquiry form validates your information locally; direct submission will be enabled once a form integration is configured. For immediate contact, email or WhatsApp is the fastest option.</p>
+          <EnquiryForm />
+        </div>
+      </section>
+    )}
+
+    {!data.kind && (
+      <section className="section empty-state">
+        <span>Page template</span>
+        <h2>This page is ready for verified content.</h2>
+        <p>The layout intentionally avoids inventing programme terms, vacant biographies, or imagined endorsements — content is published only after it is verified with the team.</p>
+      </section>
+    )}
   </main>;
 }
 
@@ -290,8 +420,8 @@ function App() {
   }, []);
   const exact = path === "/" ? null : pageContent[path];
   const serviceDetail = path.startsWith("/services/") && path !== "/services/";
-  const data = exact ?? (serviceDetail ? { eyebrow: "Publishing service", title: "Expert support shaped around your manuscript.", intro: "Speak with our team to understand the scope, process, timeline[...]" } : pageContent["/services/"]);
-  return <><Header />{path === "/" ? <Hero /> : data ? <InnerPage data={data} /> : <InnerPage data={{ eyebrow: "Not found", title: "This page has not been published yet.", intro: "Return to the homepage to continue browsing." }} />}</>;
+  const data = exact ?? (serviceDetail ? { eyebrow: "Publishing service", title: "Expert support shaped around your manuscript.", intro: "Speak with our team to understand the scope, process, timeline, and cost for a tailored service.", kind: "services" } : undefined);
+  return <><Header />{path === "/" ? <Hero /> : data ? <InnerPage data={data} /> : <InnerPage data={{ eyebrow: "Not found", title: "This page has not been published yet.", intro: "Return to the homepage or explore our published books and services.", kind: "" }} /> }<Footer /></>;
 }
 
 export default App;

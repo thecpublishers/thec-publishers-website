@@ -37,7 +37,7 @@ const books = [
 const faqs = [
   [
     "What services does Thec Writers & Publishers offer?",
-    "We support authors with ghostwriting, editing and proofreading, printing and publishing consultation, digital publishing and ISBN procurement, marketing and distribution planning, and transcr[...]
+    "We support authors with ghostwriting, editing and proofreading, printing and publishing consultation, digital publishing and ISBN procurement, marketing and distribution planning, and transcription services.",
   ],
   [
     "How long does publishing take?",
@@ -277,7 +277,7 @@ const pageContent: Record<string, { eyebrow: string; title: string; intro: strin
   "/careers/": { eyebrow: "Careers", title: "Help us bring important words to life.", intro: "Future opportunities with Thec Writers & Publishers will be published here. No open roles are current[...]
   "/referral-program/": { eyebrow: "Referral programme", title: "Introduce a writer to the right publishing support.", intro: "This page is prepared for the existing referral programme. Confirmed[...]
   "/bookstore/": { eyebrow: "Bookstore", title: "Discover books published with Thec.", intro: "The future storefront can connect to the existing WooCommerce catalogue. Products, accounts, and ord[...]
-  "/contact/": { eyebrow: "Contact", title: "Let’s talk about your book.", intro: "Tell us where you are in the publishing journey. Our team is available Monday to Saturday, 9:00 AM–5:00 PM.[...]
+  "/contact/": { eyebrow: "Contact", title: "Let’s talk about your book.", intro: "Tell us where you are in the publishing journey. Our team is available Monday to Saturday, 9:00 AM–5:00 PM.[[...]
   "/publish-your-book/": { eyebrow: "Publishing enquiry", title: "Your book starts with a conversation.", intro: "Share a little about your manuscript, goals, and the support you need. We’ll he[...]
 };
 
@@ -399,30 +399,5 @@ function Footer() {
     <div className="footer-brand"><img src={logo} alt="Thec Writers & Publishers" /><p>Professional publishing support for writers, authors, and educators. Empowering African ideas.</p><a href="mailto:talk2thecservices@gmail.com">talk2thecservices@gmail.com</a></div>
     <div><h3>Explore</h3>{[...nav, ["Careers", "/careers/"], ["Referral Program", "/referral-program/"]].map(([l, h]) => <a key={l} href={h}>{l}</a>)}</div>
     <div><h3>Services</h3>{services.slice(0, 5).map(([, title]) => <a key={title} href="/services/">{title}</a>)}</div>
-    <div><h3>Visit & contact</h3><p>Corporate HQ: Suite 31-34, Hassan Sadiq Plaza, Beside Atlantic Guest Inn, Total Roundabout, Keffi.</p><p>Fulfilment Office: Etari LLC Building, Beside Youth Center Hall, Inside Youth Center, Keffi.</p><p>+234 706 856 6254</p><p>Mon–Sat, 9:00 AM–5:00 PM</p></div>
-  </div><div className="footer-bottom"><p>© {new Date().getFullYear()} Thec Writers & Publishers. All rights reserved.</p><p>Social links will be added when confirmed.</p><a href="/bookstore/">Bookstore</a></div></footer>
-}
-
-function App() {
-  const [path, setPath] = useState(window.location.pathname);
-  useEffect(() => {
-    const onClick = (event: MouseEvent) => {
-      const target = (event.target as HTMLElement).closest("a");
-      if (!target || target.target === "_blank" || target.origin !== window.location.origin) return;
-      event.preventDefault();
-      window.history.pushState({}, "", target.pathname);
-      setPath(target.pathname);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-    const onPop = () => setPath(window.location.pathname);
-    document.addEventListener("click", onClick);
-    window.addEventListener("popstate", onPop);
-    return () => { document.removeEventListener("click", onClick); window.removeEventListener("popstate", onPop); };
-  }, []);
-  const exact = path === "/" ? null : pageContent[path];
-  const serviceDetail = path.startsWith("/services/") && path !== "/services/";
-  const data = exact ?? (serviceDetail ? { eyebrow: "Publishing service", title: "Expert support shaped around your manuscript.", intro: "Speak with our team to understand the scope, process, tim[...]
-  return <><Header />{path === "/" ? <Hero /> : data ? <InnerPage data={data} /> : <InnerPage data={{ eyebrow: "Not found", title: "This page has not been published yet.", intro: "Return to the homepa[...]
-}
-
-export default App;
+    <div><h3>Visit & contact</h3><p>Corporate HQ: Suite 31-34, Hassan Sadiq Plaza, Beside Atlantic Guest Inn, Total Roundabout, Keffi.</p><p>Fulfilment Office: Etari LLC Building, Beside Youth Ce[...]
+  </div><div className="footer-bottom"><p>© {new Date().getFullYear()} Thec Writers & Publishers. All rights reserved.</p><p>Social links will be added when confirmed.</p><a href="/bookstore/">B[...]

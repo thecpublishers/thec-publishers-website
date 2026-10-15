@@ -156,7 +156,8 @@ function Hero() {
           {services.map(([icon, title, copy], i) => (
             <article className="service-card" key={title}>
               <div className="service-top"><span className="service-icon">{icon}</span><span className="card-number">0{i + 1}</span></div>
-              <h3>{title}</h3><p>{copy}</p>
+              <h3>{title}</h3>
+              <p>{copy}</p>
               <a href={`/services/${title.toLowerCase().replaceAll(" & ", "-and-").replaceAll(" ", "-")}/`}>Learn more <Icon name="arrow" /></a>
             </article>
           ))}
@@ -203,7 +204,7 @@ function Hero() {
           {[
             ["Consultation", "We understand your vision, manuscript, audience, and requirements."],
             ["Manuscript Development", "Writing, editing, and preparation are shaped around what your work needs."],
-            ["Production", "Design, formatting, printing and etc"],
+            ["Production", "Design, formatting, and printing arrangements bring the book together."],
             ["Publication & Promotion", "We prepare your title for its intended channels and audience."],
           ].map(([title, copy], i) => <article key={title}><div className="step-line"><span>0{i + 1}</span><i /></div><h3>{title}</h3><p>{copy}</p></article>)}
         </div>
@@ -294,7 +295,140 @@ function InnerPage({ data }: { data: { eyebrow: string; title: string; intro: st
         <div className="service-grid">
           {services
             .filter(([, title]) => ["Ghostwriting", "Editing & Proofreading", "Printing & Consultation", "Marketing & Distribution", "Transcription Services"].includes(title))
-            .map(([icon, title, copy]) => (
+            .map(([icon, title, copy], i) => (
               <article className="service-card" key={title}>
-                <div className="service-top"><span className="service-icon">{icon}</span></div>
-            ... (truncated by tool)
+                <div className="service-top"><span className="service-icon">{icon}</span><span className="card-number">0{i + 1}</span></div>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+                <ul>
+                  {title === "Ghostwriting" && <><li>Concept development and structure</li><li>Full manuscript writing in your voice</li><li>Collaboration and revision rounds</li></>}
+                  {title === "Editing & Proofreading" && <><li>Structural and developmental editing</li><li>Line editing for clarity and tone</li><li>Proofreading before publication</li></>}
+                  {title === "Printing & Consultation" && <><li>Advice on paper, trim size and finishes</li><li>Print-on-demand and short-run options</li><li>Costing and supplier coordination</li></>}
+                  {title === "Marketing & Distribution" && <><li>Audience and channel planning</li><li>Metadata and retailer preparation</li><li>Launch and ongoing promotion advice</li></>}
+                  {title === "Transcription Services" && <><li>Accurate transcription of interviews and recordings</li><li>Speaker attribution and timestamping options</li><li>Turnaround time estimate and file handling</li></>}
+                </ul>
+              </article>
+            ))}
+        </div>
+        <p className="note">Digital publishing and ISBN support are also available as part of our production services.</p>
+      </section>
+    )}
+
+    {data.kind === "books" && (
+      <section className="section book-page-grid">
+        {books.map(([title, src]) => (
+          <article className="book-card" key={title}>
+            <div className="book-cover"><img src={src} alt={`${title} book cover`} loading="lazy" /></div>
+            <h3>{title}</h3>
+            <a href="/published-books/">View details</a>
+          </article>
+        ))}
+      </section>
+    )}
+
+    {data.kind === "about" && (
+      <section className="section about-story">
+        <SectionHeading eyebrow="Our approach" title="Author-centred, quality-minded." />
+        <p>We help authors navigate publishing with clarity and care. Our services are designed to match the needs of the manuscript and the goals of the author — whether the project requires writing, editing, production, or marketing support.</p>
+
+        <div className="about-sections">
+          <article>
+            <h3>Company</h3>
+            <p>Thec Writers & Publishers was founded in 2024 and operates from Keffi, Nasarawa State. We combine editorial experience with practical production knowledge to help writers publish reliably and with confidence.</p>
+          </article>
+
+          <article>
+            <h3>Author support</h3>
+            <ul>
+              <li>Ghostwriting and manuscript development</li>
+              <li>Comprehensive editing (developmental, line, and proofreading)</li>
+              <li>Publishing guidance and contract clarity</li>
+              <li>Marketing and distribution planning</li>
+            </ul>
+          </article>
+
+          <article>
+            <h3>Our publishing process</h3>
+            <ol>
+              <li><strong>Consultation:</strong> We discuss your idea, goals, and timeline.</li>
+              <li><strong>Manuscript development:</strong> Writing and editing to prepare a publishable manuscript.</li>
+              <li><strong>Production:</strong> Design, typesetting, and printing coordination.</li>
+              <li><strong>Publication & promotion:</strong> Retail preparation, metadata, and launch support.</li>
+            </ol>
+          </article>
+        </div>
+
+        <LinkButton href="/services/" secondary>See our services</LinkButton>
+      </section>
+    )}
+
+    {data.kind === "blog" && (
+      <section className="section empty-state">
+        <span>Journal archive</span>
+        <h2>Articles and guidance for writers</h2>
+        <p>We keep practical editorial and publishing guidance on our WordPress blog. If you’re looking for existing articles and resources, visit our blog where the current archive is hosted.</p>
+        <p><a href="https://thecpublishers.com/blog/" target="_blank" rel="noreferrer">Visit the WordPress blog</a></p>
+      </section>
+    )}
+
+    {data.kind === "contact" && (
+      <section className="section contact-layout">
+        <div>
+          <h2>Start with the essentials.</h2>
+          <p><Icon name="mail" /> <a href="mailto:talk2thecservices@gmail.com">talk2thecservices@gmail.com</a></p>
+          <p><Icon name="phone" /> <a href="tel:+2347068566254">+234 706 856 6254</a></p>
+          <p><Icon name="pin" /> Corporate HQ: Suite 31-34, Hassan Sadiq Plaza, Beside Atlantic Guest Inn, Total Roundabout, Keffi.</p>
+          <p><Icon name="pin" /> Fulfilment Office: Etari LLC Building, Beside Youth Center Hall, Inside Youth Center, Keffi.</p>
+          <p>Opening hours: Mon–Sat, 9:00 AM–5:00 PM</p>
+          <p><a href="http://wa.link/2u3nsm" target="_blank" rel="noreferrer">Chat on WhatsApp <Icon name="arrow" /></a></p>
+        </div>
+        <div>
+          <h3>Publishing enquiry</h3>
+          <p>The enquiry form validates your information locally; direct submission will be enabled once a form integration is configured. For immediate contact, email or WhatsApp is the fastest option.</p>
+          <EnquiryForm />
+        </div>
+      </section>
+    )}
+
+    {!data.kind && (
+      <section className="section empty-state">
+        <span>Page template</span>
+        <h2>This page is ready for verified content.</h2>
+        <p>The layout intentionally avoids inventing programme terms, vacant biographies, or imagined endorsements — content is published only after it is verified with the team.</p>
+      </section>
+    )}
+  </main>;
+}
+
+function Footer() {
+  return <footer className="footer"><div className="footer-top">
+    <div className="footer-brand"><img src={logo} alt="Thec Writers & Publishers" /><p>Professional publishing support for writers, authors, and educators. Empowering African ideas.</p><a href="mailto:talk2thecservices@gmail.com">talk2thecservices@gmail.com</a></div>
+    <div><h3>Explore</h3>{[...nav, ["Careers", "/careers/"], ["Referral Program", "/referral-program/"]].map(([l, h]) => <a key={l} href={h}>{l}</a>)}</div>
+    <div><h3>Services</h3>{services.slice(0, 5).map(([, title]) => <a key={title} href="/services/">{title}</a>)}</div>
+    <div><h3>Visit & contact</h3><p>Corporate HQ: Suite 31-34, Hassan Sadiq Plaza, Beside Atlantic Guest Inn, Total Roundabout, Keffi.</p><p>Fulfilment Office: Etari LLC Building, Beside Youth Center Hall, Inside Youth Center, Keffi.</p><p>+234 706 856 6254</p><p>Mon–Sat, 9:00 AM–5:00 PM</p></div>
+  </div><div className="footer-bottom"><p>© {new Date().getFullYear()} Thec Writers & Publishers. All rights reserved.</p><p>Social links will be added when confirmed.</p><a href="/bookstore/">Bookstore</a></div></footer>
+}
+
+function App() {
+  const [path, setPath] = useState(window.location.pathname);
+  useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      const target = (event.target as HTMLElement).closest("a");
+      if (!target || target.target === "_blank" || target.origin !== window.location.origin) return;
+      event.preventDefault();
+      window.history.pushState({}, "", target.pathname);
+      setPath(target.pathname);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+    const onPop = () => setPath(window.location.pathname);
+    document.addEventListener("click", onClick);
+    window.addEventListener("popstate", onPop);
+    return () => { document.removeEventListener("click", onClick); window.removeEventListener("popstate", onPop); };
+  }, []);
+  const exact = path === "/" ? null : pageContent[path];
+  const serviceDetail = path.startsWith("/services/") && path !== "/services/";
+  const data = exact ?? (serviceDetail ? { eyebrow: "Publishing service", title: "Expert support shaped around your manuscript.", intro: "Speak with our team to understand the scope, process, timeline, and support you need." } : null);
+  return <><Header />{path === "/" ? <Hero /> : data ? <InnerPage data={data} /> : <InnerPage data={{ eyebrow: "Not found", title: "This page has not been published yet.", intro: "Return to the homepage and explore our current services and guidance." }} />}</>;
+}
+
+export default App;

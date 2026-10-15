@@ -37,7 +37,7 @@ const books = [
 const faqs = [
   [
     "What services does Thec Writers & Publishers offer?",
-    "We support authors with ghostwriting, editing and proofreading, printing and publishing consultation, digital publishing and ISBN procurement, marketing and distribution planning, and transcription services.",
+    "We support authors with ghostwriting, editing and proofreading, printing and publishing consultation, digital publishing and ISBN procurement, marketing and distribution planning, and transcr[...]
   ],
   [
     "How long does publishing take?",
@@ -96,13 +96,13 @@ function Header() {
         {nav.map(([label, href]) => <a key={label} href={href}>{label}</a>)}
       </nav>
       <a className="header-cta" href="/publish-your-book/">Publish Your Book <Icon name="arrow" /></a>
-      <button className="menu-button" type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"}>
+      <button className="menu-button" type="button" onClick={() => setOpen(prev => !prev)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"}>
         <Icon name={open ? "close" : "menu"} />
       </button>
       <div id="mobile-menu" className={`mobile-menu ${open ? "open" : ""}`}>
         <nav aria-label="Mobile navigation">
-          {nav.map(([label, href], i) => <a key={label} href={href}><span>0{i + 1}</span>{label}</a>)}
-          <a className="mobile-cta" href="/publish-your-book/">Publish Your Book <Icon name="arrow" /></a>
+          {nav.map(([label, href], i) => <a key={label} href={href} onClick={() => setOpen(false)}><span>0{i + 1}</span>{label}</a>)}
+          <a className="mobile-cta" href="/publish-your-book/" onClick={() => setOpen(false)}>Publish Your Book <Icon name="arrow" /></a>
         </nav>
       </div>
     </header>
@@ -188,7 +188,7 @@ function Hero() {
           <LinkButton href="/published-books/" secondary>View all books</LinkButton>
         </div>
         <div className="book-rail">
-          {books.map(([title, src], i) => <a href="/published-books/" className="book-card" key={title}><div className="book-cover"><img src={src} alt={`${title} book cover`} loading="lazy" /></div><s[...]</div>
+          {books.map(([title, src], i) => <a href="/published-books/" className="book-card" key={title}><div className="book-cover"><img src={src} alt={`${title} book cover`} loading="lazy" /></d[...]
         </div>
       </section>
 
@@ -378,7 +378,7 @@ function InnerPage({ data }: { data: { eyebrow: string; title: string; intro: st
         </div>
         <div>
           <h3>Publishing enquiry</h3>
-          <p>The enquiry form validates your information locally; direct submission will be enabled once a form integration is configured. For immediate contact, email or WhatsApp is the fastest option.</p>
+          <p>The enquiry form validates your information locally; direct submission will be enabled once a form integration is configured. For immediate contact, email or WhatsApp is the fastest [...]
           <EnquiryForm />
         </div>
       </section>
@@ -396,7 +396,7 @@ function InnerPage({ data }: { data: { eyebrow: string; title: string; intro: st
 
 function Footer() {
   return <footer className="footer"><div className="footer-top">
-    <div className="footer-brand"><img src={logo} alt="Thec Writers & Publishers" /><p>Professional publishing support for writers, authors, and educators. Empowering African ideas.</p><a href="mailto:talk2thecservices@gmail.com">talk2thecservices@gmail.com</a></div>
+    <div className="footer-brand"><img src={logo} alt="Thec Writers & Publishers" /><p>Professional publishing support for writers, authors, and educators. Empowering African ideas.</p><a href="m[...]
     <div><h3>Explore</h3>{[...nav, ["Careers", "/careers/"], ["Referral Program", "/referral-program/"]].map(([l, h]) => <a key={l} href={h}>{l}</a>)}</div>
     <div><h3>Services</h3>{services.slice(0, 5).map(([, title]) => <a key={title} href="/services/">{title}</a>)}</div>
     <div><h3>Visit & contact</h3><p>Corporate HQ: Suite 31-34, Hassan Sadiq Plaza, Beside Atlantic Guest Inn, Total Roundabout, Keffi.</p><p>Fulfilment Office: Etari LLC Building, Beside Youth Ce[...]

@@ -37,7 +37,7 @@ const books = [
 const faqs = [
   [
     "What services does Thec Writers & Publishers offer?",
-    "We support authors with ghostwriting, editing and proofreading, printing and publishing consultation, digital publishing and ISBN procurement, marketing and distribution planning, and transcr[...]
+    "We support authors with ghostwriting, editing and proofreading, printing and publishing consultation, digital publishing and ISBN procurement, marketing and distribution planning, and transcription services that turn recordings, talks, and interviews into accurate, editable text. Our team supports manuscript development, structural and line editing, proofreading, cover and interior design coordination, formatting and typesetting, ISBN guidance, print and distribution options, and practical marketing planning tailored to your goals.",
   ],
   [
     "How long does publishing take?",
@@ -188,7 +188,7 @@ function Hero() {
           <LinkButton href="/published-books/" secondary>View all books</LinkButton>
         </div>
         <div className="book-rail">
-          {books.map(([title, src], i) => <a href="/published-books/" className="book-card" key={title}><div className="book-cover"><img src={src} alt={`${title} book cover`} loading="lazy" /></d[...]
+          {books.map(([title, src], i) => <a href="/published-books/" className="book-card" key={title}><div className="book-cover"><img src={src} alt={`${title} book cover`} loading="lazy" /></div><s[...]
         </div>
       </section>
 
@@ -297,9 +297,9 @@ function InnerPage({ data }: { data: { eyebrow: string; title: string; intro: st
                 <ul>
                   {title === "Ghostwriting" && <><li>Concept development and structure</li><li>Full manuscript writing in your voice</li><li>Collaboration and revision rounds</li></>}
                   {title === "Editing & Proofreading" && <><li>Structural and developmental editing</li><li>Line editing for clarity and tone</li><li>Proofreading before publication</li></>}
-                  {title === "Printing & Consultation" && <><li>Advice on paper, trim size and finishes</li><li>Print-on-demand and short-run options</li><li>Costing and supplier coordination</li[...]
+                  {title === "Printing & Consultation" && <><li>Advice on paper, trim size and finishes</li><li>Print-on-demand and short-run options</li><li>Costing and supplier coordination</li></>}
                   {title === "Marketing & Distribution" && <><li>Audience and channel planning</li><li>Metadata and retailer preparation</li><li>Launch and ongoing promotion advice</li></>}
-                  {title === "Transcription Services" && <><li>Accurate transcription of interviews and recordings</li><li>Speaker attribution and timestamping options</li><li>Turnaround time est[...]
+                  {title === "Transcription Services" && <><li>Accurate transcription of interviews and recordings</li><li>Speaker attribution and timestamping options</li><li>Turnaround time estimates</li></>}
                 </ul>
               </article>
             ))}
@@ -396,7 +396,7 @@ function InnerPage({ data }: { data: { eyebrow: string; title: string; intro: st
 
 function Footer() {
   return <footer className="footer"><div className="footer-top">
-    <div className="footer-brand"><img src={logo} alt="Thec Writers & Publishers" /><p>Professional publishing support for writers, authors, and educators. Empowering African ideas.</p><a href="m[...]
+    <div className="footer-brand"><img src={logo} alt="Thec Writers & Publishers" /><p>Professional publishing support for writers, authors, and educators. Empowering African ideas.</p><a href="mailto[...]
     <div><h3>Explore</h3>{[...nav, ["Careers", "/careers/"], ["Referral Program", "/referral-program/"]].map(([l, h]) => <a key={l} href={h}>{l}</a>)}</div>
     <div><h3>Services</h3>{services.slice(0, 5).map(([, title]) => <a key={title} href="/services/">{title}</a>)}</div>
     <div><h3>Visit & contact</h3><p>Corporate HQ: Suite 31-34, Hassan Sadiq Plaza, Beside Atlantic Guest Inn, Total Roundabout, Keffi.</p><p>Fulfilment Office: Etari LLC Building, Beside Youth Ce[...]

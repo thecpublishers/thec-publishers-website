@@ -197,9 +197,30 @@ h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.035em; line-height: 1
   .desktop-nav { display: none; }
   .header-cta { margin-right: 12px; }
   .menu-button { display: inline-flex; }
-  .mobile-menu { display: block; position: absolute; left: 0; right: 0; top: 80px; background: var(--paper); border-bottom: 1px solid var(--line); max-height: 0; overflow: hidden; visibility: hidden; transition: max-height .28s ease, visibility .28s; z-index: 30; }
-  .mobile-menu.open { max-height: 600px; visibility: visible; }
-  .mobile-menu nav { padding: 20px 30px 30px; }
+
+.mobile-menu {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 80px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  max-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  visibility: hidden;
+  transition: max-height .28s ease, visibility .28s;
+  z-index: 30;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.mobile-menu.open {
+  max-height: calc(100dvh - 80px);
+  visibility: visible;
+}
+.mobile-menu nav { padding: 20px 30px 30px; }
+
   .mobile-menu a { padding: 13px 0; display: flex; gap: 18px; align-items: center; font-family: var(--serif); font-size: 22px; border-bottom: 1px solid var(--line); }
   .mobile-menu a span { font: 500 9px var(--body); color: var(--red); }
   .mobile-menu .mobile-cta { margin-top: 20px; padding: 16px 20px; justify-content: space-between; background: var(--red); color: white; font: 600 14px var(--body); }

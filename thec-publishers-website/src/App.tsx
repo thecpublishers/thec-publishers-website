@@ -227,10 +227,24 @@ function Hero() {
         <a href="/contact/">Work with our team <Icon name="arrow" /></a>
       </section>
 
+
       <section className="section faq-section">
-        <div><SectionHeading eyebrow="Frequently asked" title="Questions before the first page." /><p className="faq-intro">Every book is different. These answers cover the essentials, and our team can help with the rest.</p></div>
-        <div className="faq-list">{faqs.map(([q, a], i) => <Faq key={q} question={q} answer={a} index={i} />)}</div>
+        <div>
+          <SectionHeading
+            eyebrow="Frequently asked"
+            title="Questions before the first page."
+          />
+          <p className="faq-intro">
+            Every book is different. These answers cover the essentials, and our team is happy to discuss specifics for your project.
+          </p>
+        </div>
+        <div className="faq-list">
+          {faqs.map(([q, a], i) => (
+            <Faq key={q} question={q} answer={a} index={i} />
+          ))}
+        </div>
       </section>
+
 
       <section className="cta-section">
         <div><Eyebrow>Your next chapter</Eyebrow><h2>Ready to bring your book to life?</h2><p>Tell us about your manuscript and let us help you plan your next step.</p></div>

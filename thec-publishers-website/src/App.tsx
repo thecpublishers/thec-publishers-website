@@ -100,10 +100,23 @@ function Header() {
         <Icon name={open ? "close" : "menu"} />
       </button>
       <div id="mobile-menu" className={`mobile-menu ${open ? "open" : ""}`}>
-        <nav aria-label="Mobile navigation">
-          {nav.map(([label, href], i) => <a key={label} href={href}><span>0{i + 1}</span>{label}</a>)}
-          <a className="mobile-cta" href="/publish-your-book/">Publish Your Book <Icon name="arrow" /></a>
-        </nav>
+
+<nav aria-label="Mobile navigation">
+  {nav.map(([label, href], i) => (
+    <a key={label} href={href} onClick={() => setOpen(false)}>
+      <span>0{i + 1}</span>
+      {label}
+    </a>
+  ))}
+  <a
+    className="mobile-cta"
+    href="/publish-your-book/"
+    onClick={() => setOpen(false)}
+  >
+    Publish Your Book <Icon name="arrow" />
+  </a>
+</nav>
+
       </div>
     </header>
   );

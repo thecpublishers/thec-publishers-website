@@ -119,10 +119,9 @@ h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.035em; line-height: 1
 
 .team-section { border-top: 1px solid var(--line); }
 .team-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
-.team-photo { aspect-ratio: 4/4.6; background: #dedbd5; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #8b8780; position: relative; overflow: hidden; }
-.team-photo::after { content: ""; position: absolute; width: 70%; aspect-ratio: 1; border: 1px solid rgba(255,255,255,.6); border-radius: 50%; }
-.team-photo span { font: 700 clamp(44px,5vw,72px) var(--serif); letter-spacing: -.07em; z-index: 1; }
-.team-photo small { z-index: 1; text-transform: uppercase; letter-spacing: .13em; font-size: 8px; margin-top: 10px; }
+.team-photo { aspect-ratio: 4/4.6; background: #dedbd5; position: relative; overflow: hidden; }
+.team-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform .35s ease; }
+.team-card:hover .team-photo img { transform: scale(1.025); }
 .team-card h3 { font-size: 20px; margin: 20px 0 4px; }
 .team-card > p { color: var(--red); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; }
 

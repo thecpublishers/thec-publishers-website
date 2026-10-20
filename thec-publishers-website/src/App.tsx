@@ -245,7 +245,7 @@ function Hero() {
 
       <section className="section faq-section">
         <div><SectionHeading eyebrow="Frequently asked" title="Questions before the first page." /><p className="faq-intro">Every book is different. These answers cover the essentials, and our team is happy to discuss specifics for your project.</p>
-        <div className="faq-list">{faqs.map(([q, a], i) => <Faq key={q} question={q} answer={a} index={i} />)}</div>
+        <div className="faq-list">{faqs.map(([q, a], i) => <Faq key={q} question={q} answer={a} index={i} />)}</div></div>
       </section>
 
       <section className="cta-section">

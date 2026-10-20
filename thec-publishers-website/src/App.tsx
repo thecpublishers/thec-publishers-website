@@ -1,5 +1,8 @@
 import { FormEvent, ReactNode, useEffect, useState } from "react";
 import companyGraphic from "./imports/WhatsApp_Image_2026-08-19_at_3.45.09_PM.jpeg";
+import paulPhoto from "./imports/paul-elijah.jpg (2).jpeg";
+import joshuaPhoto from "./imports/joshua-caleb-mechi.jpg.jpeg";
+import aardhanPhoto from "./imports/aardhan-abdull.jpg.jpeg";
 
 const logo = "https://thecpublishers.com/wp-content/uploads/2025/05/cropped-Thec-Logo-2.png";
 const heroPhoto =
@@ -217,9 +220,15 @@ function Hero() {
           <p>The people guiding projects, supporting authors, and keeping projects on track.</p>
         </div>
         <div className="team-grid">
-          {[["PE", "Paul Elijah", "Founder & CEO"], ["JM", "Joshua Caleb Mechi", "Human Resources"], ["AA", "Aardhan Abdull", "Project Manager"]].map(([initials, name, role]) => (
-            <article className="team-card" key={name as string}>
-              <div className="team-photo" aria-label={`Photo placeholder for ${name}`}><span>{initials}</span><small>Official photo to be added</small></div>
+          {[
+            { name: "Paul Elijah", role: "Founder & CEO", photo: paulPhoto },
+            { name: "Joshua Caleb Mechi", role: "Human Resources", photo: joshuaPhoto },
+            { name: "Aardhan Abdull", role: "Project Manager", photo: aardhanPhoto },
+          ].map(({ name, role, photo }) => (
+            <article className="team-card" key={name}>
+              <div className="team-photo">
+                <img src={photo} alt={name} loading="lazy" />
+              </div>
               <div className="team-copy"><h4>{name}</h4><small>{role}</small></div>
             </article>
           ))}
